@@ -1,0 +1,29 @@
+version: '3'
+services:
+  web001:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    # TODO node
+    #user: node
+    #user: root
+    # TODO 1001:1001 what is the node id?
+    #command: chown -R node:node ./node_modules
+    volumes:
+      - /app/node_modules
+      - .:/app:ro # read only
+  tests001:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # TODO node
+    #user: node
+    #user: root
+    # TODO 1001:1001 what is the node id?
+    #command: chown -R node:node ./node_modules
+    volumes:
+      - /app/node_modules
+      - .:/app:ro # read only
+    command: ["npm", "run", "test"]
