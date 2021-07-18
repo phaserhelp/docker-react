@@ -15,3 +15,28 @@ script:
   #https://stackoverflow.com/questions/55991641/npm-test-coverage-never-exits
   #- docker run stephengrider/docker-react npm run test -- --coverage
   - docker run -e CI=true stephengrider/docker-react npm run test -- --coverage
+
+# aws meh
+deploy:
+  # use this set of instructions to deploy our application
+  provider: elasticbeanstalk # use this set of instructions to deploy our application
+  region: "us-west-2" # TODO needs to always be eu!
+  app: docker # name of your app in aws
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-us-west-2-3064766262626262626..."
+  bucket_path: "docker" # app name
+  on:
+    branch: master # only deploy on master branch update
+  # search for iam
+  # go to users on the left, add user, username: docker-react-travis-ci
+  # access type: programmatic access
+  # attach existing policies directly
+  # policy: full access
+  # copy access key ID
+  # copy Secret access key (only showed once!)
+  # travis-ci -> settings -> enviroment variables:
+  # AWS_ACCESS_KEY <paste id>
+  # AWS_SECRET_KEY <paste secret key>
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
