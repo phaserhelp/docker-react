@@ -17,5 +17,7 @@ RUN npm run build
 # TODO nginx configs
 #/app/build/* has the code we want
 FROM nginx
+# only works on public cloud, not our our dev laptop
+EXPOSE 80
 # copy from phase builder
 COPY --from=builder /app/build /usr/share/nginx/html
