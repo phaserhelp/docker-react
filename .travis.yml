@@ -1,0 +1,15 @@
+# we need superuser to exec build
+sudo: required
+services:
+  - docker
+
+# series of cmds before we deploy our project or we start testing
+before_install:
+  # use a TAG (-t) to reference it later
+  # dockerusername/github-repo
+  - docker build -t stephengrider/docker-react -f Dockerfile.dev .
+
+# test build, npm run test will wait on user interaction:
+# add -- --coverage to exit with a "report" and a status code of 0
+script:
+  - docker run stephengrider/docker-react npm run test -- --coverage
