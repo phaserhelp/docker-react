@@ -12,4 +12,6 @@ before_install:
 # test build, npm run test will wait on user interaction:
 # add -- --coverage to exit with a "report" and a status code of 0
 script:
-  - docker run stephengrider/docker-react npm run test -- --coverage
+  #https://stackoverflow.com/questions/55991641/npm-test-coverage-never-exits
+  #- docker run stephengrider/docker-react npm run test -- --coverage
+  - docker run stephengrider/docker-react npm run test
